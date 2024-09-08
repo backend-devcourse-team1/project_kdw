@@ -1,10 +1,7 @@
 package org.programers.grids_and_circles.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.programers.grids_and_circles.entity.enumClass.OrderStatus;
 import org.programers.grids_and_circles.entity.superClass.DateSuperClass;
 
@@ -24,7 +21,7 @@ public class Orders extends DateSuperClass {
     @Column(name = "order_id")
     private UUID orderId; // GenerationType.UUID 옵션 주면  BINARY(16)로 매핑
 
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
 
     @Column(name = "address", length = 200, nullable = false)
@@ -39,12 +36,15 @@ public class Orders extends DateSuperClass {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
     @Builder
-
     public Orders(LocalDateTime createdAt, LocalDateTime updatedAt, String email, String address, String postcode, OrderStatus orderStatus) {
         super(createdAt, updatedAt);
         this.email = email;
         this.orderStatus = orderStatus;
         this.address = address;
         this.postcode = postcode;
+    }
+
+    public void modifyOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }
