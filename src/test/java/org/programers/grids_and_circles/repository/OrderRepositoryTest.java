@@ -30,7 +30,7 @@ class OrderRepositoryTest {
     public void setUp() {
         order = Orders.builder()
                 .address("안양시")
-                .email("kimdw990823@gmail.com")
+                .email("kimdw0823@gmail.com")
                 .postcode("12345")
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())

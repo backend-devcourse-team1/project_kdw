@@ -33,7 +33,12 @@ public class Orders extends DateSuperClass {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(
+            mappedBy = "order",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+
+    )
     private List<OrderItem> orderItems = new ArrayList<>();
     @Builder
     public Orders(LocalDateTime createdAt, LocalDateTime updatedAt, String email, String address, String postcode, OrderStatus orderStatus) {

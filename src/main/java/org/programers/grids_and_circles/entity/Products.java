@@ -35,7 +35,10 @@ public class Products extends DateSuperClass {
     @Column(name = "description", length = 500, nullable = true) // null 허용해주면 기본 값으로 null이 들어감
     private String description;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(
+            mappedBy = "product",
+            cascade = CascadeType.ALL
+    )
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @Builder

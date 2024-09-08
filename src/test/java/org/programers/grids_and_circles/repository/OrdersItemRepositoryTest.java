@@ -23,6 +23,10 @@ class OrdersItemRepositoryTest {
 
     @Autowired
     private OrdersItemRepository ordersItemRepository;
+    @Autowired
+    private OrdersRepository ordersRepository;
+    @Autowired
+    private ProductsRepository productsRepository;
     private Products product;
     private Orders order;
     @BeforeAll()
@@ -43,7 +47,8 @@ class OrdersItemRepositoryTest {
                 .updatedAt(LocalDateTime.now())
                 .orderStatus(DELIVERED)
                 .build();
-
+        ordersRepository.save(order);
+        productsRepository.save(product);
     }
 
     @Test
@@ -70,7 +75,7 @@ class OrdersItemRepositoryTest {
 
     @AfterAll()
     public void cleanUp() {
-
+        productsRepository.deleteAll();
         ordersItemRepository.deleteAll();
     }
 }
