@@ -7,6 +7,7 @@ import org.programers.grids_and_circles.repository.OrdersRepository;
 import org.programers.grids_and_circles.services.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class OrdersServiceImpl implements OrdersService {
 
 
     @Override
+    @Transactional
     public Orders createOrder(CreateOrderDto createOrderDto) {
         Orders orders = orderMapper.createOrderDtoToOrderEntity(createOrderDto);
 
@@ -32,16 +34,19 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Orders> readAllOrder() {
         return repository.findAll();
     }
 
     @Override
+    @Transactional
     public void updateAllOrderStatus(List<Orders> ordersList) {
         repository.saveAll(ordersList);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Orders> readByEmail(String email) {
         return repository.findByEmail(email);
     }
