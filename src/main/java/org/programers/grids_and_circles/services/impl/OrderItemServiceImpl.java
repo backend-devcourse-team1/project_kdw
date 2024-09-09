@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,13 +34,19 @@ public class OrderItemServiceImpl implements OrdersItemService {
     @Override
     @Transactional
     public OrderItemResponseDto createOrderItems(OrderItemRequestDto orderItemRequestDto) {
-        CreateOrderDto createOrderDto = CreateOrderDto.builder()
-                .email(orderItemRequestDto.getEmail())
-                .postcode(orderItemRequestDto.getPostcode())
-                .address(orderItemRequestDto.getAddress())
-                .build();
+        Orders order;
+        Optional<Orders> existingOrder = ordersService.readByEmail(orderItemRequestDto.getEmail());
 
-        Orders order = ordersService.createOrder(createOrderDto);
+        if (existingOrder.isPresent()) {
+            order = existingOrder.get();
+        }else{
+            CreateOrderDto createOrderDto = CreateOrderDto.builder()
+                    .email(orderItemRequestDto.getEmail())
+                    .postcode(orderItemRequestDto.getPostcode())
+                    .address(orderItemRequestDto.getAddress())
+                    .build();
+            order = ordersService.createOrder(createOrderDto);
+        }
         OrderItemResponseDto orderItemResponseDto = OrderItemResponseDto.builder().build();
         for (int i = 0; i < orderItemRequestDto.getProductsUUIDs().size(); i++) {
             UUID productUUID = orderItemRequestDto.getProductsUUIDs().get(i);

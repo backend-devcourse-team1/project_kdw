@@ -54,7 +54,7 @@ class OrderRepositoryTest {
     @Order(2)
     public void orderUpdateTest() {
         //Given
-        Orders byEmail = ordersRepository.findByEmail(order.getEmail());
+        Orders byEmail = ordersRepository.findByEmail(order.getEmail()).get();
         byEmail.modifyOrderStatus(OrderStatus.CANCELLED);
 
         //When

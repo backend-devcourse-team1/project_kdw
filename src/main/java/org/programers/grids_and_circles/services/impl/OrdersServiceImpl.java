@@ -1,7 +1,7 @@
 package org.programers.grids_and_circles.services.impl;
 
-import org.programers.grids_and_circles.dto.orders.CreateOrderDto;
 import org.programers.grids_and_circles.dto.mapper.OrderMapper;
+import org.programers.grids_and_circles.dto.orders.CreateOrderDto;
 import org.programers.grids_and_circles.entity.Orders;
 import org.programers.grids_and_circles.repository.OrdersRepository;
 import org.programers.grids_and_circles.services.OrdersService;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrdersServiceImpl implements OrdersService {
@@ -38,5 +39,10 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public void updateAllOrderStatus(List<Orders> ordersList) {
         repository.saveAll(ordersList);
+    }
+
+    @Override
+    public Optional<Orders> readByEmail(String email) {
+        return repository.findByEmail(email);
     }
 }
