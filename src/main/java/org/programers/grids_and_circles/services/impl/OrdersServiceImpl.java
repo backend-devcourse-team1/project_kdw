@@ -8,6 +8,8 @@ import org.programers.grids_and_circles.services.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrdersServiceImpl implements OrdersService {
 
@@ -26,5 +28,15 @@ public class OrdersServiceImpl implements OrdersService {
         Orders orders = orderMapper.createOrderDtoToOrderEntity(createOrderDto);
 
         return repository.save(orders);
+    }
+
+    @Override
+    public List<Orders> readAllOrder() {
+        return repository.findAll();
+    }
+
+    @Override
+    public void updateAllOrderStatus(List<Orders> ordersList) {
+        repository.saveAll(ordersList);
     }
 }

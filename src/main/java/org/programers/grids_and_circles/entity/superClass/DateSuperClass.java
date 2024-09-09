@@ -5,7 +5,6 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -20,4 +19,7 @@ public class DateSuperClass {
 
     @Column(name = "updated_at", columnDefinition = "DATETIME(6)", nullable = true)
     private LocalDateTime updatedAt;
+    public void updateUpdatedAt() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
