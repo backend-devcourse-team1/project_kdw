@@ -55,13 +55,13 @@ class OrdersItemServiceTest {
 
         Products save = productsRepository.save(product);
         Products save1 = productsRepository.save(product1);
-        orderItemRequestDto = new OrderItemRequestDto();
-
-        orderItemRequestDto.setAddress("1234");
-        orderItemRequestDto.setPostcode("1234");
-        orderItemRequestDto.setEmail("1234");
-        orderItemRequestDto.setProductQuantities(List.of(1234,1234));
-        orderItemRequestDto.setProductsUUIDs(List.of(save.getProductId(),save1.getProductId()));
+        orderItemRequestDto = OrderItemRequestDto.builder()
+                .address("1234")
+                .postcode("1234")
+                .email("1234@example.com")
+                .productQuantities(List.of(1234, 1234))
+                .productsUUIDs(List.of(save.getProductId(), save1.getProductId()))
+                .build();
 
     }
 

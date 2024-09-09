@@ -1,5 +1,6 @@
 package org.programers.grids_and_circles.services.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.programers.grids_and_circles.dto.orderItem.OrderItemRequestDto;
 import org.programers.grids_and_circles.dto.orderItem.OrderItemResponseDto;
 import org.programers.grids_and_circles.dto.orders.CreateOrderDto;
@@ -62,7 +63,7 @@ public class OrderItemServiceImpl implements OrdersItemService {
                                 orderItemResponseDto.getOrderItems().add(save.getSeq());
                             },
                             () -> {
-                                throw new RuntimeException("Product not found for UUID: " + productUUID);
+                                throw new EntityNotFoundException("Product not found for UUID: " + productUUID);
                             }
                     );
         }
