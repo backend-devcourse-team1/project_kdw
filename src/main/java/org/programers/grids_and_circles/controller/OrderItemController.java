@@ -23,7 +23,7 @@ public class OrderItemController {
         this.ordersItemService = ordersItemService;
     }
 
-    @PostMapping("/")
+    @PostMapping
 
     public ResponseEntity<OrderItemResponseDto> createOrderItem(@RequestBody OrderItemRequestDto orderItemRequestDto) {
         try {
